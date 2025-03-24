@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.transition.TransitionManager
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
 import com.hangeulmansae.flexmode.databinding.ActivityMainBinding
@@ -59,8 +60,10 @@ class MainActivity : AppCompatActivity() {
                              */
                             val isVerticalHinge = hingeBounds.height() >= hingeBounds.width()
                             if (isVerticalHinge) {
+                                // 레이아웃 변경 전 Transition 애니메이션 시작
                                 ConstraintSet().apply {
                                     clone(binding.main)
+                                    TransitionManager.beginDelayedTransition(binding.main)
                                     this.setHorizontalWeight(binding.blue.id, 0.5F)
                                     this.setHorizontalWeight(binding.green.id, 0.5F)
                                     applyTo(binding.main)
@@ -82,6 +85,7 @@ class MainActivity : AppCompatActivity() {
                             if (isVerticalHinge) {
                                 ConstraintSet().apply {
                                     clone(binding.main)
+                                    TransitionManager.beginDelayedTransition(binding.main)
                                     this.setHorizontalWeight(binding.blue.id, 0.8F)
                                     this.setHorizontalWeight(binding.green.id, 0.2F)
                                     applyTo(binding.main)
